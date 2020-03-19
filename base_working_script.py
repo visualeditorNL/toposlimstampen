@@ -6,16 +6,20 @@ from matplotlib.collections import PatchCollection
 from matplotlib.patches import PathPatch
 import numpy as np
 
+# create a map to attach the shapefile to
 map = Basemap()
 
 sh = map.readshapefile("ne_110m_admin_0_countries/ne_110m_admin_0_countries","landen")
 map.fillcontinents(color='lightgrey', alpha=0.5, lake_color='white')
 
+#extract Dutch country names from shapefile
 countries = [r['NAME_NL'] for r in map.landen_info]
 countries = list(dict.fromkeys(countries))
 
 
+#iterate through list of countries and make separate basemaps and write them as png
 for i in countries:
+    
     fig = plt.figure(figsize=(16,8))
     ax  = fig.add_subplot(111)
     
